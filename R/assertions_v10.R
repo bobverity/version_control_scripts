@@ -578,14 +578,14 @@ assert_bounded <- function(x, left = 0, right = 1, inclusive_left = TRUE, inclus
                            name = paste(deparse(substitute(x)), collapse = "")) {
 
   if (inclusive_left) {
-    assert_greq(x, left, message = message, name = name)
+    assert_greq(x, left, message = message, name_x = name)
   } else {
-    assert_gr(x, left, message = message, name = name)
+    assert_gr(x, left, message = message, name_x = name)
   }
   if (inclusive_right) {
-    assert_leq(x, right, message = message, name = name)
+    assert_leq(x, right, message = message, name_x = name)
   } else {
-    assert_le(x, right, message = message, name = name)
+    assert_le(x, right, message = message, name_x = name)
   }
   return(TRUE)
 }
