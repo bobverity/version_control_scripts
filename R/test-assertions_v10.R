@@ -331,6 +331,17 @@ test_that("assert_list working correctly", {
 })
 
 #------------------------------------------------
+test_that("assert_named working correctly", {
+  expect_true(assert_named(c(x = 5)))
+  expect_true(assert_named(list(x = "foo")))
+  expect_true(assert_named(data.frame(x = "foo", y = "bar")))
+
+  expect_error(assert_named(NULL))
+  expect_error(assert_named(5))
+  expect_error(assert_named(matrix(NA, 3, 3)))
+})
+
+#------------------------------------------------
 test_that("assert_list_named working correctly", {
   expect_true(assert_list_named(list(a = 1:5)))
   expect_true(assert_list_named(data.frame(x = 1:5)))
@@ -354,12 +365,12 @@ test_that("assert_dataframe working correctly", {
 })
 
 #------------------------------------------------
-test_that("assert_custom_class working correctly", {
-  expect_true(assert_custom_class(NULL, "NULL"))
-  expect_true(assert_custom_class(data.frame(1:5), "data.frame"))
+test_that("assert_class working correctly", {
+  expect_true(assert_class(NULL, "NULL"))
+  expect_true(assert_class(data.frame(1:5), "data.frame"))
 
-  expect_error(assert_custom_class(NULL, "foo"))
-  expect_error(assert_custom_class(data.frame(1:5), "foo"))
+  expect_error(assert_class(NULL, "foo"))
+  expect_error(assert_class(data.frame(1:5), "foo"))
 })
 
 #------------------------------------------------
