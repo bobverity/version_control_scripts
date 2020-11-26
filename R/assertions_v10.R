@@ -455,11 +455,16 @@ assert_limit <- function(x, message = NULL,
 #------------------------------------------------
 # x and y are equal in all matched comparisons. x and y can be any type
 #' @noRd
-assert_eq <- function(x, y, message = "%s must equal %s",
+assert_eq <- function(x, y, message = NULL,
                       name_x = paste(deparse(substitute(x)), collapse = ""), name_y = nice_format(y)) {
-  assert_non_null(x, name = name_x)
-  assert_non_null(y, name = name_y)
-  assert_same_length(x, y, name_x = name_x, name_y = name_y)
+  # default message
+  if (is.null(message)) {
+    message <- "%s must equal %s"
+  }
+
+  assert_non_null(x, name = name_x, message = message)
+  assert_non_null(y, name = name_y, message = message)
+  assert_same_length(x, y, name_x = name_x, name_y = name_y, message = message)
   if (!isTRUE(all.equal(x, y, check.attributes = FALSE))) {
     stop(sprintf(message, name_x, name_y), call. = FALSE)
   }
@@ -469,11 +474,16 @@ assert_eq <- function(x, y, message = "%s must equal %s",
 #------------------------------------------------
 # x and y are unequal in all matched comparisons. x and y can be any type
 #' @noRd
-assert_neq <- function(x, y, message = "%s cannot equal %s",
+assert_neq <- function(x, y, message = NULL,
                        name_x = paste(deparse(substitute(x)), collapse = ""), name_y = nice_format(y)) {
-  assert_non_null(x, name = name_x)
-  assert_non_null(y, name = name_y)
-  assert_same_length(x, y, name_x = name_x, name_y = name_y)
+  # default message
+  if (is.null(message)) {
+    message <- "%s cannot equal %s"
+  }
+
+  assert_non_null(x, name = name_x, message = message)
+  assert_non_null(y, name = name_y, message = message)
+  assert_same_length(x, y, name_x = name_x, name_y = name_y, message = message)
   if (any(x == y)) {
     stop(sprintf(message, name_x, name_y), call. = FALSE)
   }
@@ -483,13 +493,18 @@ assert_neq <- function(x, y, message = "%s cannot equal %s",
 #------------------------------------------------
 # x is greater than y in all matched comparisons
 #' @noRd
-assert_gr <- function(x, y, message = "%s must be greater than %s",
+assert_gr <- function(x, y, message = NULL,
                       name_x = paste(deparse(substitute(x)), collapse = ""),
                       name_y = nice_format(y)) {
-  assert_numeric(x, name = name_x)
-  assert_numeric(y, name = name_y)
-  assert_in(length(y), c(1,length(x)))
-  if (!all(x>y)) {
+  # default message
+  if (is.null(message)) {
+    message <- "%s must be greater than %s"
+  }
+
+  assert_numeric(x, name = name_x, message = message)
+  assert_numeric(y, name = name_y, message = message)
+  assert_in(length(y), c(1, length(x)), message = message)
+  if (!all(x > y)) {
     stop(sprintf(message, name_x, name_y), call. = FALSE)
   }
   return(TRUE)
@@ -498,11 +513,17 @@ assert_gr <- function(x, y, message = "%s must be greater than %s",
 #------------------------------------------------
 # x is greater than or equal to y in all matched comparisons
 #' @noRd
-assert_greq <- function(x, y, message = "%s must be greater than or equal to %s",
-                        name_x = paste(deparse(substitute(x)), collapse = ""), name_y = nice_format(y)) {
-  assert_numeric(x, name = name_x)
-  assert_numeric(y, name = name_y)
-  assert_in(length(y), c(1,length(x)))
+assert_greq <- function(x, y, message = NULL,
+                        name_x = paste(deparse(substitute(x)), collapse = ""),
+                        name_y = nice_format(y)) {
+  # default message
+  if (is.null(message)) {
+    message <- "%s must be greater than or equal to %s"
+  }
+
+  assert_numeric(x, name = name_x, message = message)
+  assert_numeric(y, name = name_y, message = message)
+  assert_in(length(y), c(1, length(x)), message = message)
   if (!all(x >= y)) {
     stop(sprintf(message, name_x, name_y), call. = FALSE)
   }
@@ -512,12 +533,18 @@ assert_greq <- function(x, y, message = "%s must be greater than or equal to %s"
 #------------------------------------------------
 # x is less than y in all matched comparisons
 #' @noRd
-assert_le <- function(x, y, message = "%s must be less than %s",
-                      name_x = paste(deparse(substitute(x)), collapse = ""), name_y = nice_format(y)) {
-  assert_numeric(x, name = name_x)
-  assert_numeric(y, name = name_y)
-  assert_in(length(y), c(1,length(x)))
-  if (!all(x<y)) {
+assert_le <- function(x, y, message = NULL,
+                      name_x = paste(deparse(substitute(x)), collapse = ""),
+                      name_y = nice_format(y)) {
+  # default message
+  if (is.null(message)) {
+    message <- "%s must be less than %s"
+  }
+
+  assert_numeric(x, name = name_x, message = message)
+  assert_numeric(y, name = name_y, message = message)
+  assert_in(length(y), c(1, length(x)), message = message)
+  if (!all(x < y)) {
     stop(sprintf(message, name_x, name_y), call. = FALSE)
   }
   return(TRUE)
@@ -526,12 +553,18 @@ assert_le <- function(x, y, message = "%s must be less than %s",
 #------------------------------------------------
 # x is less than or equal to y in all matched comparisons
 #' @noRd
-assert_leq <- function(x, y, message = "%s must be less than or equal to %s",
-                       name_x = paste(deparse(substitute(x)), collapse = ""), name_y = nice_format(y)) {
-  assert_numeric(x, name = name_x)
-  assert_numeric(y, name = name_y)
-  assert_in(length(y), c(1,length(x)))
-  if (!all(x<=y)) {
+assert_leq <- function(x, y, message = NULL,
+                       name_x = paste(deparse(substitute(x)), collapse = ""),
+                       name_y = nice_format(y)) {
+  # default message
+  if (is.null(message)) {
+    message <- "%s must be less than or equal to %s"
+  }
+
+  assert_numeric(x, name = name_x, message = message)
+  assert_numeric(y, name = name_y, message = message)
+  assert_in(length(y), c(1, length(x)), message = message)
+  if (!all(x <= y)) {
     stop(sprintf(message, name_x, name_y), call. = FALSE)
   }
   return(TRUE)
@@ -541,25 +574,18 @@ assert_leq <- function(x, y, message = "%s must be less than or equal to %s",
 # x is between bounds (inclusive or exclusive)
 #' @noRd
 assert_bounded <- function(x, left = 0, right = 1, inclusive_left = TRUE, inclusive_right = TRUE,
+                           message = NULL,
                            name = paste(deparse(substitute(x)), collapse = "")) {
-  assert_numeric(x, name = name)
+
   if (inclusive_left) {
-    if (!all(x>=left)) {
-      stop(sprintf("%s must be greater than or equal to %s", name, left), call. = FALSE)
-    }
+    assert_greq(x, left, message = message, name = name)
   } else {
-    if (!all(x>left)) {
-      stop(sprintf("%s must be greater than %s", name, left), call. = FALSE)
-    }
+    assert_gr(x, left, message = message, name = name)
   }
   if (inclusive_right) {
-    if (!all(x<=right)) {
-      stop(sprintf("%s must be less than or equal to %s", name, right), call. = FALSE)
-    }
+    assert_leq(x, right, message = message, name = name)
   } else {
-    if (!all(x<right)) {
-      stop(sprintf("%s must be less than %s", name, right), call. = FALSE)
-    }
+    assert_le(x, right, message = message, name = name)
   }
   return(TRUE)
 }
@@ -567,10 +593,15 @@ assert_bounded <- function(x, left = 0, right = 1, inclusive_left = TRUE, inclus
 #------------------------------------------------
 # all x are in y
 #' @noRd
-assert_in <- function(x, y, message = "all %s must be in %s",
+assert_in <- function(x, y, message = NULL,
                       name_x = paste(deparse(substitute(x)), collapse = ""), name_y = nice_format(y)) {
-  assert_non_null(x, name = name_x)
-  assert_non_null(y, name = name_y)
+  # default message
+  if (is.null(message)) {
+    message <- "all %s must be in %s"
+  }
+
+  assert_non_null(x, name = name_x, message = message)
+  assert_non_null(y, name = name_y, message = message)
   if (!all(x %in% y)) {
     stop(sprintf(message, name_x, name_y), call. = FALSE)
   }
@@ -580,10 +611,15 @@ assert_in <- function(x, y, message = "all %s must be in %s",
 #------------------------------------------------
 # none of x are in y
 #' @noRd
-assert_not_in <- function(x, y, message = "none of %s can be in %s",
+assert_not_in <- function(x, y, message = NULL,
                           name_x = paste(deparse(substitute(x)), collapse = ""), name_y = nice_format(y)) {
-  assert_non_null(x, name = name_x)
-  assert_non_null(y, name = name_y)
+  # default message
+  if (is.null(message)) {
+    message <- "none of %s can be in %s"
+  }
+
+  assert_non_null(x, name = name_x, message = message)
+  assert_non_null(y, name = name_y, message = message)
   if (any(x %in% y)) {
     stop(sprintf(message, name_x, name_y), call. = FALSE)
   }
@@ -596,9 +632,14 @@ assert_not_in <- function(x, y, message = "none of %s can be in %s",
 #------------------------------------------------
 # length(x) equals n
 #' @noRd
-assert_length <- function(x, n, message = "%s must be of length %s",
+assert_length <- function(x, n, message = NULL,
                           name = paste(deparse(substitute(x)), collapse = "")) {
-  assert_pos_int(n)
+  # default message
+  if (is.null(message)) {
+    message <- "%s must be of length %s"
+  }
+
+  assert_pos_int(n, message = message, name = name)
   if (length(x) != n[1]) {
     stop(sprintf(message, name, n), call. = FALSE)
   }
@@ -608,9 +649,14 @@ assert_length <- function(x, n, message = "%s must be of length %s",
 #------------------------------------------------
 # x and y are same length
 #' @noRd
-assert_same_length <- function(x, y, message =  "%s and %s must be the same length",
+assert_same_length <- function(x, y, message =  NULL,
                                name_x = paste(deparse(substitute(x)), collapse = ""),
                                name_y = paste(deparse(substitute(y)))) {
+  # default message
+  if (is.null(message)) {
+    message <- "%s and %s must be the same length"
+  }
+
   if (length(x) != length(y)) {
     stop(sprintf(message, name_x, name_y), call. = FALSE)
   }
@@ -632,13 +678,16 @@ assert_same_length_multiple <- function(...) {
 #------------------------------------------------
 # x is two-dimensional
 #' @noRd
-assert_2d <- function(x, message = "%s must be two-dimensional",
+assert_2d <- function(x, message = NULL,
                       name = paste(deparse(substitute(x)), collapse = "")) {
+  # default message
+  if (is.null(message)) {
+    message <- "%s must be two-dimensional"
+  }
+
   is_2d <- FALSE
   if (!is.null(dim(x))) {
-    if (length(dim(x)) == 2) {
-      is_2d <- TRUE
-    }
+    is_2d <- (length(dim(x)) == 2)
   }
   if (!is_2d) {
     stop(sprintf(message, name), call. = FALSE)
@@ -649,9 +698,14 @@ assert_2d <- function(x, message = "%s must be two-dimensional",
 #------------------------------------------------
 # nrow(x) equals n
 #' @noRd
-assert_nrow <- function(x, n, message = "%s must have %s rows",
+assert_nrow <- function(x, n, message = NULL,
                         name = paste(deparse(substitute(x)), collapse = "")) {
-  assert_2d(x, name = name)
+  # default message
+  if (is.null(message)) {
+    message <- "%s must have %s rows"
+  }
+
+  assert_2d(x, name = name, message = message)
   if (nrow(x) != n) {
     stop(sprintf(message, name, n), call. = FALSE)
   }
@@ -661,9 +715,14 @@ assert_nrow <- function(x, n, message = "%s must have %s rows",
 #------------------------------------------------
 # ncol(x) equals n
 #' @noRd
-assert_ncol <- function(x, n, message = "%s must have %s cols",
+assert_ncol <- function(x, n, message = NULL,
                         name = paste(deparse(substitute(x)), collapse = "")) {
-  assert_2d(x, name = name)
+  # default message
+  if (is.null(message)) {
+    message <- "%s must have %s cols"
+  }
+
+  assert_2d(x, name = name, message = message)
   if (ncol(x) != n) {
     stop(sprintf(message, name, n), call. = FALSE)
   }
@@ -673,11 +732,16 @@ assert_ncol <- function(x, n, message = "%s must have %s cols",
 #------------------------------------------------
 # dim(x) equals y
 #' @noRd
-assert_dim <- function(x, y, message = "%s must have %s rows and %s columns",
+assert_dim <- function(x, y, message = NULL,
                        name = paste(deparse(substitute(x)), collapse = "")) {
-  assert_2d(x, name = name)
-  assert_pos_int(y, name = "y variable in assert_dim()")
-  assert_length(y, 2, name = "y variable in assert_dim()")
+  # default message
+  if (is.null(message)) {
+    message <- "%s must have %s rows and %s columns"
+  }
+
+  assert_2d(x, name = name, message = message)
+  assert_pos_int(y, name = name, message = message)
+  assert_length(y, 2, name = name, message = message)
   if (nrow(x) != y[1] | ncol(x) != y[2]) {
     stop(sprintf(message, name, y[1], y[2]), call. = FALSE)
   }
@@ -687,9 +751,14 @@ assert_dim <- function(x, y, message = "%s must have %s rows and %s columns",
 #------------------------------------------------
 # x is square matrix
 #' @noRd
-assert_square_matrix <- function(x, message = "%s must be a square matrix",
+assert_square_matrix <- function(x, message = NULL,
                                  name = paste(deparse(substitute(x)), collapse = "")) {
-  assert_matrix(x, name = name)
+  # default message
+  if (is.null(message)) {
+    message <- "%s must be a square matrix"
+  }
+
+  assert_matrix(x, name = name, message = message)
   if (nrow(x) != ncol(x)) {
     stop(sprintf(message, name), call. = FALSE)
   }
@@ -699,9 +768,14 @@ assert_square_matrix <- function(x, message = "%s must be a square matrix",
 #------------------------------------------------
 # is symmetric matrix
 #' @noRd
-assert_symmetric_matrix <- function(x, message = "%s must be a symmetric matrix",
+assert_symmetric_matrix <- function(x, message = NULL,
                                     name = paste(deparse(substitute(x)), collapse = "")) {
-  assert_square_matrix(x, name = name)
+  # default message
+  if (is.null(message)) {
+    message <- "%s must be a symmetric matrix"
+  }
+
+  assert_square_matrix(x, name = name, message = message)
   if (!isSymmetric(x)) {
     stop(sprintf(message, name), call. = FALSE)
   }
@@ -713,8 +787,13 @@ assert_symmetric_matrix <- function(x, message = "%s must be a symmetric matrix"
 #------------------------------------------------
 # x contains no duplicates
 #' @noRd
-assert_noduplicates <- function(x, message = "%s must contain no duplicates",
+assert_noduplicates <- function(x, message = NULL,
                                 name = paste(deparse(substitute(x)), collapse = "")) {
+  # default message
+  if (is.null(message)) {
+    message <- "%s must contain no duplicates"
+  }
+
   if (any(duplicated(x))) {
     stop(sprintf(message, name), call. = FALSE)
   }
@@ -724,8 +803,13 @@ assert_noduplicates <- function(x, message = "%s must contain no duplicates",
 #------------------------------------------------
 # file exists at chosen path
 #' @noRd
-assert_file_exists <- function(x, message = "file not found at path %s",
+assert_file_exists <- function(x, message = NULL,
                                name = paste(deparse(substitute(x)), collapse = "")) {
+  # default message
+  if (is.null(message)) {
+    message <- "file not found at path %s"
+  }
+
   if (!file.exists(x)) {
     stop(sprintf(message, name), call. = FALSE)
   }
@@ -735,10 +819,15 @@ assert_file_exists <- function(x, message = "file not found at path %s",
 #------------------------------------------------
 # x is increasing
 #' @noRd
-assert_increasing <- function(x, message = "%s must be increasing",
+assert_increasing <- function(x, message = NULL,
                               name = paste(deparse(substitute(x)), collapse = "")) {
-  assert_non_null(x, name = name)
-  assert_numeric(x, name = name)
+  # default message
+  if (is.null(message)) {
+    message <- "%s must be increasing"
+  }
+
+  assert_non_null(x, name = name, message = message)
+  assert_numeric(x, name = name, message = message)
   if (!all.equal(x, sort(x))) {
     stop(sprintf(message, name), call. = FALSE)
   }
@@ -748,10 +837,15 @@ assert_increasing <- function(x, message = "%s must be increasing",
 #------------------------------------------------
 # x is decreasing
 #' @noRd
-assert_decreasing <- function(x, message = "%s must be decreasing",
+assert_decreasing <- function(x, message = NULL,
                               name = paste(deparse(substitute(x)), collapse = "")) {
-  assert_non_null(x, name = name)
-  assert_numeric(x, name = name)
+  # default message
+  if (is.null(message)) {
+    message <- "%s must be decreasing"
+  }
+
+  assert_non_null(x, name = name, message = message)
+  assert_numeric(x, name = name, message = message)
   if (!all.equal(x, sort(x, decreasing = TRUE))) {
     stop(sprintf(message, name), call. = FALSE)
   }
