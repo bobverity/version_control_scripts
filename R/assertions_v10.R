@@ -357,8 +357,8 @@ assert_single_bounded <- function(x, left = 0, right = 1, inclusive_left = TRUE,
 #' @noRd
 assert_vector_numeric <- function(x, message = NULL,
                                   name = paste(deparse(substitute(x)), collapse = "")) {
-  assert_numeric(x, message = message, name = name, message = message)
-  assert_vector(x, message = message, name = name, message = message)
+  assert_numeric(x, message = message, name = name)
+  assert_vector(x, message = message, name = name)
   return(TRUE)
 }
 
@@ -367,8 +367,8 @@ assert_vector_numeric <- function(x, message = NULL,
 #' @noRd
 assert_vector_int <- function(x, message = NULL,
                               name = paste(deparse(substitute(x)), collapse = "")) {
-  assert_int(x, message = message, name = name, message = message)
-  assert_vector(x, message = message, name = name, message = message)
+  assert_int(x, message = message, name = name)
+  assert_vector(x, message = message, name = name)
   return(TRUE)
 }
 
